@@ -18,6 +18,7 @@ module.exports = {
     semi: [1, "always"],
     "space-before-function-paren": "off",
     "@typescript-eslint/interface-name-prefix": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    indent: "off"
   }
 };

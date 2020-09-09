@@ -12,7 +12,7 @@ import {
   setLanguage,
   setSize
 } from "@/utils/cookies";
-import { getLocale } from "@/lang";
+// import { getLocale } from "@/lang";
 import store from "@/store";
 
 export enum DeviceType {
@@ -38,7 +38,7 @@ class App extends VuexModule implements IAppState {
   };
 
   public device = DeviceType.Desktop;
-  public language = getLocale();
+  // public language = getLocale();
   public size = getSize() || "medium";
 
   @Mutation
@@ -64,11 +64,11 @@ class App extends VuexModule implements IAppState {
     this.device = device;
   }
 
-  @Mutation
-  private SET_LANGUAGE(language: string) {
-    this.language = language;
-    setLanguage(this.language);
-  }
+  // @Mutation
+  // private SET_LANGUAGE(language: string) {
+  //   this.language = language;
+  //   setLanguage(this.language);
+  // }
 
   @Mutation
   private SET_SIZE(size: string) {

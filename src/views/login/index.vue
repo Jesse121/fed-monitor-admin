@@ -10,9 +10,8 @@
     >
       <div class="title-container">
         <h3 class="title">
-          {{ $t("login.title") }}
+          系统登录
         </h3>
-        <lang-select class="set-language" />
       </div>
 
       <el-form-item prop="username">
@@ -22,7 +21,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          :placeholder="$t('login.username')"
+          placeholder="账号"
           name="username"
           type="text"
           tabindex="1"
@@ -45,7 +44,7 @@
             ref="password"
             v-model="loginForm.password"
             :type="passwordType"
-            :placeholder="$t('login.password')"
+            placeholder="密码"
             name="password"
             tabindex="2"
             autocomplete="on"
@@ -67,36 +66,9 @@
         style="width:100%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
-        {{ $t("login.logIn") }}
+        登录
       </el-button>
-
-      <div style="position:relative">
-        <div class="tips">
-          <span>{{ $t("login.username") }} : admin </span>
-          <span>{{ $t("login.password") }} : {{ $t("login.any") }} </span>
-        </div>
-        <div class="tips">
-          <span>{{ $t("login.username") }} : editor </span>
-          <span>{{ $t("login.password") }} : {{ $t("login.any") }} </span>
-        </div>
-
-        <el-button
-          class="thirdparty-button"
-          type="primary"
-          @click="showDialog = true"
-        >
-          {{ $t("login.thirdparty") }}
-        </el-button>
-      </div>
     </el-form>
-
-    <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
-      {{ $t("login.thirdpartyTips") }}
-      <br />
-      <br />
-      <br />
-      <social-sign />
-    </el-dialog>
   </div>
 </template>
 
@@ -107,15 +79,9 @@ import { Dictionary } from "vue-router/types/router";
 import { Form as ElForm, Input } from "element-ui";
 import { UserModule } from "@/store/modules/user";
 import { isValidUsername } from "@/utils/validate";
-import LangSelect from "@/components/LangSelect/index.vue";
-import SocialSign from "./components/SocialSignin.vue";
 
 @Component({
-  name: "Login",
-  components: {
-    LangSelect,
-    SocialSign
-  }
+  name: "Login"
 })
 export default class extends Vue {
   private validateUsername = (rule: any, value: string, callback: Function) => {
@@ -135,8 +101,8 @@ export default class extends Vue {
   };
 
   private loginForm = {
-    username: "admin",
-    password: "111111"
+    username: "",
+    password: ""
   };
 
   private loginRules = {
@@ -231,6 +197,7 @@ export default class extends Vue {
 }
 
 .login-container {
+  height: 100vh;
   .el-input {
     display: inline-block;
     height: 47px;

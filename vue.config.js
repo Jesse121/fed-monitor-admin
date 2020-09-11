@@ -1,9 +1,9 @@
 const path = require("path");
 function resolve(dir) {
-  return path.join(__dirname, dir);
+  return path.resolve(__dirname, dir);
 }
 module.exports = {
-  outputDir: "../fed-monitor-server/dist",
+  outputDir: "../fed-monitor-server/public",
   devServer: {
     port: 3000,
     proxy: {
@@ -16,6 +16,14 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set("@", resolve("src"));
   },
+  // configureWebpack: {
+  //   resolve: {
+  //     extensions: [".ts"],
+  //     alias: {
+  //       "@": resolve("src")
+  //     }
+  //   }
+  // },
   pluginOptions: {
     "style-resources-loader": {
       preProcessor: "scss",

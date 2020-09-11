@@ -14,7 +14,8 @@ import store from "@/store";
 
 export interface IUserState {
   token: string;
-  name: string;
+  userId: number;
+  username: string;
   avatar: string;
   introduction: string;
   roles: string[];
@@ -24,7 +25,8 @@ export interface IUserState {
 @Module({ dynamic: true, store, name: "user" })
 class User extends VuexModule implements IUserState {
   public token = getToken() || "";
-  public name = "";
+  public username = "";
+  public userId = 0;
   public avatar = "";
   public introduction = "";
   public roles: string[] = [];
@@ -36,8 +38,8 @@ class User extends VuexModule implements IUserState {
   }
 
   @Mutation
-  private SET_NAME(name: string) {
-    this.name = name;
+  private SET_NAME(username: string) {
+    this.username = username;
   }
 
   @Mutation
@@ -60,6 +62,12 @@ class User extends VuexModule implements IUserState {
     this.email = email;
   }
 
+  @Mutation
+  private SET_USERID(userId: number) {
+    this.userId = userId;
+    sessionStorage.setItem("userId", String(userId));
+  }
+
   @Action
   public async Login(userInfo: { username: string; password: string }) {
     let { username, password } = userInfo;
@@ -67,6 +75,7 @@ class User extends VuexModule implements IUserState {
     const { data } = await login({ username, password });
     setToken(data.accessToken);
     this.SET_TOKEN(data.accessToken);
+    this.SET_USERID(data.userId);
   }
 
   @Action
@@ -82,18 +91,18 @@ class User extends VuexModule implements IUserState {
       throw Error("GetUserInfo: token is undefined!");
     }
     const { data } = await getUserInfo({
-      /* Your params here */
+      userId: this.userId || sessionStorage.getItem("userId")
     });
     if (!data) {
       throw Error("Verification failed, please Login again.");
     }
-    const { roles, name, avatar, introduction, email } = data.user;
+    const { roles, username, avatar, introduction, email } = data.user;
     // roles must be a non-empty array
     if (!roles || roles.length <= 0) {
       throw Error("GetUserInfo: roles must be a non-null array!");
     }
     this.SET_ROLES(roles);
-    this.SET_NAME(name);
+    this.SET_NAME(username);
     this.SET_AVATAR(avatar);
     this.SET_INTRODUCTION(introduction);
     this.SET_EMAIL(email);

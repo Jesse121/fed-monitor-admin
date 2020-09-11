@@ -9,7 +9,7 @@
       ref="loginForm"
     >
       <div class="title-container">
-        <h3 class="title">系统登录</h3>
+        <h3 class="title">{{ $t('login.title') }}</h3>
       </div>
 
       <el-form-item prop="username">
@@ -17,9 +17,9 @@
           <svg-icon name="user" />
         </span>
         <el-input
+          :placeholder="$t('login.username')"
           autocomplete="on"
           name="username"
-          placeholder="账号"
           ref="username"
           tabindex="1"
           type="text"
@@ -34,13 +34,13 @@
           </span>
           <el-input
             :key="passwordType"
+            :placeholder="$t('login.password')"
             :type="passwordType"
             @blur="capsTooltip = false"
             @keyup.enter.native="handleLogin"
             @keyup.native="checkCapslock"
             autocomplete="on"
             name="password"
-            placeholder="密码"
             ref="password"
             tabindex="2"
             v-model="loginForm.password"
@@ -56,7 +56,7 @@
         @click.native.prevent="handleLogin"
         style="width:100%; margin-bottom:30px;"
         type="primary"
-      >登录</el-button>
+      >{{ $t('login.logIn') }}</el-button>
     </el-form>
   </div>
 </template>
@@ -90,8 +90,8 @@
     };
 
     private loginForm = {
-      username: "",
-      password: ""
+      username: "jesse",
+      password: "123456"
     };
 
     private loginRules = {
@@ -186,7 +186,6 @@
   }
 
   .login-container {
-    height: 100vh;
     .el-input {
       display: inline-block;
       height: 47px;

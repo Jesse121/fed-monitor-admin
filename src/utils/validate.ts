@@ -1,5 +1,5 @@
 export const isValidUsername = (str: string) =>
-  ["jesse", "editor"].indexOf(str.trim()) >= 0;
+  ["jesse", "jack"].indexOf(str.trim()) >= 0;
 
 export const isExternal = (path: string) =>
   /^(https?:|mailto:|tel:)/.test(path);

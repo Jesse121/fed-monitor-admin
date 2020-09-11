@@ -9,7 +9,7 @@ import {
   getSidebarStatus,
   getSize,
   setSidebarStatus,
-  setLanguage,
+  // setLanguage,
   setSize
 } from "@/utils/cookies";
 // import { getLocale } from "@/lang";
@@ -91,10 +91,10 @@ class App extends VuexModule implements IAppState {
     this.TOGGLE_DEVICE(device);
   }
 
-  @Action
-  public SetLanguage(language: string) {
-    this.SET_LANGUAGE(language);
-  }
+  // @Action
+  // public SetLanguage(language: string) {
+  //   this.SET_LANGUAGE(language);
+  // }
 
   @Action
   public SetSize(size: string) {

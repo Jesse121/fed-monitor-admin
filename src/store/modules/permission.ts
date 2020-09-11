@@ -58,5 +58,4 @@ class Permission extends VuexModule implements IPermissionState {
     this.SET_ROUTES(accessedRoutes);
   }
 }
-
 export const PermissionModule = getModule(Permission);

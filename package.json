@@ -8,12 +8,20 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
+    "driver.js": "^0.9.8",
+    "echarts": "^4.9.0",
     "element-ui": "^2.13.2",
+    "fuse.js": "^6.4.1",
     "js-cookie": "^2.2.1",
     "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0",
+    "screenfull": "^5.0.2",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
+    "vue-count-to": "^1.0.13",
+    "vue-i18n": "^8.21.0",
     "vue-property-decorator": "^8.4.2",
     "vue-router": "^3.2.0",
     "vue-svgicon": "3.2.6",
@@ -21,6 +29,9 @@
     "vuex-module-decorators": "^0.17.0"
   },
   "devDependencies": {
+    "@types/echarts": "^4.6.5",
+    "@types/js-cookie": "^2.2.6",
+    "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",

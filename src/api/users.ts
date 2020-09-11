@@ -43,7 +43,7 @@ export const login = (data: any) =>
 export const logout = () =>
   request({
     url: "/api/users/logout",
-    method: "post"
+    method: "get"
   });
 
 export const register = (data: any) =>

@@ -8,35 +8,17 @@
     />
     <breadcrumb class="breadcrumb-container" id="breadcrumb-container" />
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
-        <header-search class="right-menu-item" />
-        <error-log class="errLog-container right-menu-item hover-effect" />
-        <screenfull class="right-menu-item hover-effect" />
-        <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
-          <size-select class="right-menu-item hover-effect" />
-        </el-tooltip>
-        <lang-select class="right-menu-item hover-effect" />
-      </template>
       <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar" />
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/">
-            <el-dropdown-item>{{ $t('navbar.profile') }}</el-dropdown-item>
-          </router-link>
           <router-link to="/">
-            <el-dropdown-item>{{ $t('navbar.dashboard') }}</el-dropdown-item>
+            <el-dropdown-item>{{ $t("navbar.dashboard") }}</el-dropdown-item>
           </router-link>
-          <a href="https://github.com/armour/vue-typescript-admin-template/" target="_blank">
-            <el-dropdown-item>{{ $t('navbar.github') }}</el-dropdown-item>
-          </a>
-          <a href="https://armour.github.io/vue-typescript-admin-docs/" target="_blank">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
           <el-dropdown-item @click.native="logout" divided>
-            <span style="display:block;">{{ $t('navbar.logOut') }}</span>
+            <span style="display:block;">{{ $t("navbar.logOut") }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -49,23 +31,13 @@
   import { AppModule } from "@/store/modules/app";
   import { UserModule } from "@/store/modules/user";
   import Breadcrumb from "@/components/Breadcrumb/index.vue";
-  import ErrorLog from "@/components/ErrorLog/index.vue";
   import Hamburger from "@/components/Hamburger/index.vue";
-  import HeaderSearch from "@/components/HeaderSearch/index.vue";
-  // import LangSelect from "@/components/LangSelect/index.vue";
-  import Screenfull from "@/components/Screenfull/index.vue";
-  import SizeSelect from "@/components/SizeSelect/index.vue";
 
   @Component({
     name: "Navbar",
     components: {
       Breadcrumb,
-      ErrorLog,
-      Hamburger,
-      HeaderSearch,
-      // LangSelect,
-      Screenfull,
-      SizeSelect
+      Hamburger
     }
   })
   export default class extends Vue {

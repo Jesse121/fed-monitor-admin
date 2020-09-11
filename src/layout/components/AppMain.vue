@@ -1,9 +1,6 @@
 <template>
   <section class="app-main">
-    <transition
-      name="fade-transform"
-      mode="out-in"
-    >
+    <transition name="fade-transform" mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key" />
       </keep-alive>
@@ -12,19 +9,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { TagsViewModule } from '@/store/modules/tags-view'
+import { Component, Vue } from "vue-property-decorator";
+import { TagsViewModule } from "@/store/modules/tags-view";
 
 @Component({
-  name: 'AppMain'
+  name: "AppMain"
 })
 export default class extends Vue {
   get cachedViews() {
-    return TagsViewModule.cachedViews
+    return TagsViewModule.cachedViews;
   }
 
   get key() {
-    return this.$route.path
+    return this.$route.path;
   }
 }
 </script>
@@ -38,7 +35,7 @@ export default class extends Vue {
   overflow: hidden;
 }
 
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
   height: 100vh;
   overflow: auto;
@@ -50,7 +47,7 @@ export default class extends Vue {
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header+.app-main {
+  .fixed-header + .app-main {
     padding-top: 84px;
   }
 }

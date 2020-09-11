@@ -8,13 +8,13 @@
   import { Component, Vue } from "vue-property-decorator";
   import { UserModule } from "@/store/modules/user";
   import AdminDashboard from "./admin/index.vue";
-  import EditorDashboard from "./editor/index.vue";
+  import visitorDashboard from "./visitor/index.vue";
 
   @Component({
     name: "Dashboard",
     components: {
       AdminDashboard,
-      EditorDashboard
+      visitorDashboard
     }
   })
   export default class extends Vue {
@@ -26,7 +26,7 @@
 
     created() {
       if (!this.roles.includes("admin")) {
-        this.currentRole = "editor-dashboard";
+        this.currentRole = "visitor-dashboard";
       }
     }
   }

@@ -26,7 +26,6 @@ export interface IAppState {
     opened: boolean;
     withoutAnimation: boolean;
   };
-  language: string;
   size: string;
 }
 

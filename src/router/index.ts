@@ -90,9 +90,9 @@ export const constantRoutes: RouteConfig[] = [
     ]
   },
   {
-    path: "/guide",
+    path: "/performance",
     component: Layout,
-    redirect: "/guide/index",
+    redirect: "/performance/index",
     children: [
       {
         path: "index",

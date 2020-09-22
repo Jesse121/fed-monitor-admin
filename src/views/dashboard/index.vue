@@ -5,29 +5,29 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from "vue-property-decorator";
-  import { UserModule } from "@/store/modules/user";
-  import AdminDashboard from "./admin/index.vue";
-  import visitorDashboard from "./visitor/index.vue";
+import { Component, Vue } from "vue-property-decorator";
+import { UserModule } from "@/store/modules/user";
+import AdminDashboard from "./admin/index.vue";
+import visitorDashboard from "./visitor/index.vue";
 
-  @Component({
-    name: "Dashboard",
-    components: {
-      AdminDashboard,
-      visitorDashboard
-    }
-  })
-  export default class extends Vue {
-    private currentRole = "admin-dashboard";
+@Component({
+  name: "Dashboard",
+  components: {
+    AdminDashboard,
+    visitorDashboard
+  }
+})
+export default class extends Vue {
+  private currentRole = "admin-dashboard";
 
-    get roles() {
-      return UserModule.roles;
-    }
+  get roles() {
+    return UserModule.roles;
+  }
 
-    created() {
-      if (!this.roles.includes("admin")) {
-        this.currentRole = "visitor-dashboard";
-      }
+  created() {
+    if (!this.roles.includes("admin")) {
+      this.currentRole = "visitor-dashboard";
     }
   }
+}
 </script>

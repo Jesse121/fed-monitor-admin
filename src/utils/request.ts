@@ -2,18 +2,18 @@ import axios from "axios";
 import { Message, MessageBox } from "element-ui";
 import { UserModule } from "@/store/modules/user";
 
-const service = axios.create({
+const request = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   timeout: 5000
   // withCredentials: true // send cookies when cross-domain requests
 });
 
 // Request interceptors
-service.interceptors.request.use(
+request.interceptors.request.use(
   config => {
     // Add X-Access-Token header to every request, you can add other custom headers here
     if (UserModule.token) {
-      config.headers["X-Access-Token"] = UserModule.token;
+      config.headers.Authorization = `Bearer ${UserModule.token}`;
     }
     return config;
   },
@@ -23,7 +23,7 @@ service.interceptors.request.use(
 );
 
 // Response interceptors
-service.interceptors.response.use(
+request.interceptors.response.use(
   response => {
     // Some example codes here:
     // code == 20000: success
@@ -69,4 +69,4 @@ service.interceptors.response.use(
   }
 );
 
-export default service;
+export default request;

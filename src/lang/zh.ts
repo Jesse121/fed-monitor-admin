@@ -1,8 +1,12 @@
 export default {
   route: {
     dashboard: "首页",
-    documentation: "文档",
     performance: "性能监测",
+    errorLog: "错误日志",
+    staticLog: "页面统计",
+    pvLog: "PV统计",
+    uvLog: "UV统计",
+    documentation: "文档",
     permission: "权限测试页",
     rolePermission: "角色权限",
     pagePermission: "页面权限",
@@ -49,7 +53,6 @@ export default {
     errorPages: "错误页面",
     page401: "401",
     page404: "404",
-    errorLog: "错误日志",
     excel: "Excel",
     exportExcel: "导出 Excel",
     selectExcel: "导出 已选择项",

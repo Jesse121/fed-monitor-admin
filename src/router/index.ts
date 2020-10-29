@@ -127,6 +127,38 @@ export const constantRoutes: RouteConfig[] = [
         }
       }
     ]
+  },
+  {
+    path: "/static-log",
+    component: Layout,
+    redirect: "noredirect",
+    meta: {
+      title: "staticLog",
+      icon: "excel",
+      alwaysShow: true // will always show the root menu
+    },
+    children: [
+      {
+        path: "pv",
+        component: () =>
+          import(/* webpackChunkName: "pv-log" */ "@/views/pv-log/index.vue"),
+        name: "PvLog",
+        meta: {
+          title: "pvLog",
+          icon: "excel"
+        }
+      },
+      {
+        path: "uv",
+        component: () =>
+          import(/* webpackChunkName: "pv-log" */ "@/views/pv-log/index.vue"),
+        name: "UvLog",
+        meta: {
+          title: "uvLog",
+          icon: "excel"
+        }
+      }
+    ]
   }
 ];
 
@@ -157,6 +189,11 @@ const createRouter = () =>
   });
 
 const router = createRouter();
+
+router.afterEach((to, from) => {
+  const path = to.path;
+  console.log(path);
+});
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {

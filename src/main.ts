@@ -42,8 +42,6 @@ Vue.use(SvgIcon, {
 
 Vue.config.productionTip = false;
 
-// interface PerformanceAdd extend Performance {}
-
 Vue.config.errorHandler = function(err) {
   const { message, stack } = err;
   // console.log(stack);

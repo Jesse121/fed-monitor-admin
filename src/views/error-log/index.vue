@@ -2,79 +2,97 @@
   <div class="errPage-container">
     <el-table
       :data="tableData"
+      :default-sort="{ prop: 'time', order: 'descending' }"
       stripe
-      :default-sort="{ prop: 'lodt', order: 'descending' }"
-      style="width: 100%"
     >
-      <el-table-column type="index" :index="indexMethod" label="序号">
+      <el-table-column
+        :index="indexMethod"
+        label="序号"
+        type="index"
+        width="50"
+      ></el-table-column>
+      <el-table-column
+        label="发生时间"
+        prop="time"
+        width="150"
+      ></el-table-column>
+      <el-table-column
+        label="错误类型"
+        prop="type"
+        width="80"
+      ></el-table-column>
+      <el-table-column label="页面链接" width="200">
+        <template slot-scope="scope">
+          <a :href="scope.row.data.url" target="_blank">
+            {{ scope.row.data.url }}
+          </a>
+        </template>
       </el-table-column>
-      <el-table-column prop="resourceUrl" label="链接地址"> </el-table-column>
-      <el-table-column prop="time" sortable label="发生时间"> </el-table-column>
-      <el-table-column prop="type" sortable label="错误类型"> </el-table-column>
-      <el-table-column prop="msg" sortable label="错误提示"> </el-table-column>
+      <el-table-column
+        label="错误提示"
+        prop="data.msg"
+        width="200"
+      ></el-table-column>
+      <el-table-column
+        class="stack"
+        label="堆栈信息"
+        prop="data.stack"
+      ></el-table-column>
     </el-table>
     <el-pagination
-      layout="prev, pager, next"
-      :total="total"
       :page-size="10"
+      :total="total"
       @current-change="handleCurrentChange"
-    >
-    </el-pagination>
+      layout="prev, pager, next"
+    ></el-pagination>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+<script>
 import { getErrorData } from "@/api/error";
 import moment from "moment";
-
-interface IErrorData {
-  time: number;
-  type: string;
-  msg: string;
-  resourceUrl: string;
-}
-
-@Component({
-  name: "ErrorLog"
-})
-export default class extends Vue {
-  private tableData: IErrorData[] = [];
-  private total = 0;
-  private currentPage = 1;
-  private pageSize = 10;
-
+export default {
+  name: "ErrorLog",
+  data() {
+    return {
+      tableData: [],
+      total: 0,
+      currentPage: 1,
+      pageSize: 10
+    };
+  },
   created() {
     this.getErrorList(1);
-    throw new Error("b");
+  },
+  methods: {
+    async getErrorList(page) {
+      const { data } = await getErrorData({
+        page: page,
+        pageSize: this.pageSize
+      });
+      data.result.forEach(item => {
+        item.time = moment(item.time).format("YYYY-MM-DD HH:mm:ss");
+      });
+      this.tableData = data.result;
+      this.total = data.total;
+    },
+
+    indexMethod(index) {
+      return this.pageSize * (this.currentPage - 1) + index + 1;
+    },
+
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      this.getErrorList(val);
+    }
   }
-
-  private async getErrorList(page: number) {
-    const { data } = await getErrorData({
-      page: page,
-      pageSize: this.pageSize
-    });
-    data.result.forEach((item: any) => {
-      item.time = moment(item.time).format("YYYY-MM-DD HH:mm:ss");
-    });
-
-    this.tableData = data.result;
-    this.total = data.total;
-  }
-
-  private indexMethod = (index: number) => {
-    return this.pageSize * (this.currentPage - 1) + index + 1;
-  };
-
-  private handleCurrentChange = (val: number) => {
-    this.currentPage = val;
-    this.getErrorList(val);
-  };
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .errPage-container {
-  padding: 30px;
+  .stack {
+    white-space: nowrap;
+  }
 }
 </style>

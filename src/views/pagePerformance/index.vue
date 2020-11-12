@@ -13,12 +13,18 @@
       <el-table-column label="页面重定向耗时" prop="rdit" sortable></el-table-column>
       <el-table-column label="request请求耗时" prop="reqt" sortable></el-table-column>
     </el-table>
-    <el-pagination :page-size="10" :total="total" @current-change="handleCurrentChange" layout="prev, pager, next"></el-pagination>
+    <el-pagination
+      :page-size="10"
+      :total="total"
+      @current-change="handleCurrentChange"
+      background
+      layout="prev, pager, next"
+    ></el-pagination>
   </div>
 </template>
 
 <script>
-  import { getPerformanceData } from "@/api/performance";
+  import { getPagePerformanceData } from "@/api/performance";
   export default {
     name: "PagePerformance",
     data() {
@@ -34,7 +40,7 @@
     },
     methods: {
       async getPerformance(page) {
-        const { data } = await getPerformanceData({
+        const { data } = await getPagePerformanceData({
           page: page,
           pageSize: this.pageSize
         });

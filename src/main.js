@@ -1,34 +1,35 @@
 import Vue from "vue";
-
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-
 import "normalize.css/normalize.css";
 import "@/styles/index.scss";
-
 import App from "./App";
 import store from "./store";
 import router from "./router";
-
+import * as filters from "./filters";
 import "@/icons";
 import "@/permission";
 
-// /**
-//  * If you don't want to use mock-server
-//  * you want to use MockJs for mock api
-//  * you can execute: mockXHR()
-//  *
-//  * Currently MockJs will be used in the production environment,
-//  * please remove it before going online ! ! !
-//  */
-// if (process.env.NODE_ENV === "production") {
-//   const { mockXHR } = require("../mock");
-//   mockXHR();
-// }
-
 Vue.use(ElementUI);
 
+// 注册全局过滤器
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key]);
+});
+
 Vue.config.productionTip = false;
+
+Vue.config.errorHandler = function(err) {
+  const { message, stack } = err;
+  Performance.addError({
+    type: "vueError",
+    data: {
+      url: location.href,
+      msg: message,
+      stack
+    }
+  });
+};
 
 new Vue({
   el: "#app",

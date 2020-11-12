@@ -52,9 +52,28 @@ export const constantRoutes = [
     ]
   },
   {
+    path: "/error-log",
+    component: Layout,
+    redirect: "noRedirect",
+    children: [
+      {
+        path: "log",
+        component: () =>
+          import(
+            /* webpackChunkName: "error-log" */ "@/views/error-log/index.vue"
+          ),
+        name: "ErrorLog",
+        meta: {
+          title: "错误日志",
+          icon: "bug"
+        }
+      }
+    ]
+  },
+  {
     path: "/performance",
     component: Layout,
-    redirect: "noredirect",
+    redirect: "noRedirect",
     meta: {
       title: "性能检测",
       icon: "guide",
@@ -74,41 +93,24 @@ export const constantRoutes = [
         }
       },
       {
-        path: "api",
+        path: "request",
         component: () =>
           import(
             /* webpackChunkName: "apiPerformance" */ "@/views/apiPerformance/index.vue"
           ),
         name: "apiPerformance",
         meta: {
-          title: "API性能监测",
+          title: "接口性能监测",
           noCache: true
         }
       }
     ]
   },
-  {
-    path: "/error-log",
-    component: Layout,
-    redirect: "noredirect",
-    children: [
-      {
-        path: "log",
-        component: () =>
-          import(
-            /* webpackChunkName: "error-log" */ "@/views/error-log/index.vue"
-          ),
-        name: "ErrorLog",
-        meta: {
-          title: "错误日志",
-          icon: "bug"
-        }
-      }
-    ]
-  },
+
   {
     path: "/404",
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404"),
+    component: () =>
+      import(/* webpackChunkName: "404" */ "@/views/404/index.vue"),
     hidden: true
   },
   // 404 page must be placed at the end !!!
@@ -117,12 +119,17 @@ export const constantRoutes = [
 
 const createRouter = () =>
   new Router({
-    // mode: 'history', // require service support
+    mode: "history",
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes
   });
 
 const router = createRouter();
+
+// router.afterEach((to, from) => {
+//   const path = to.path;
+//   console.log(path);
+// });
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
